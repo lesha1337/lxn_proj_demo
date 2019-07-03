@@ -1,0 +1,7 @@
+[Unit]
+Description=Mount camera on %i and sync data
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/AlexNDataSync add %i
+ExecStop=/usr/bin/AlexNDataSync remove %i

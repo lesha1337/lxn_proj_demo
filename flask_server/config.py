@@ -1,0 +1,1 @@
+video_path = '/home/bogdan/data/lxn_proj/tmp/'

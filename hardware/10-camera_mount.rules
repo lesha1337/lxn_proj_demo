@@ -1,0 +1,5 @@
+KERNEL=="sd[a-z][1-9]", ACTION=="add", ATTRS{idVendor}=="0603", \
+RUN+="/bin/systemctl start camera-mount@%k_%E{ID_FS_UUID}.service"
+
+KERNEL=="sd[a-z][1-9]", ACTION=="remove", ATTRS{idVendor}=="0603", \
+RUN+="/bin/systemctl stop camera-mount@%k_%E{ID_FS_UUID}.service"

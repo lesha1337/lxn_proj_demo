@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  backend:
+    build: backend
+    expose:
+      - "5000"
+    ports: 
+      - "5000:5000"
+    volumes:
+      - ./data_sync/data:/lxn/data
+      - ./backend:/lxn/backend
+    depends_on:
+      - flask_server
+      
+  flask_server:
+    build: flask_server
+    expose:
+      - "10228"
+    ports:
+      - "10228:10228"
+    volumes:
+      - ./data_sync/data:/lxn/data
+      - ./flask_server:/lxn/flask_server
+
+  client:
+    build: client
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/lxn/client
+    depends_on:
+      - flask_server
+      - backend

@@ -1,0 +1,28 @@
+# frontend
+client/build/
+client/public/video/
+client/node_modules/
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+
+#flask_server
+flask_server/__pycache__/
+flask_server/video_render/__pycache__/
+
+#backend
+backend/node_modules
+# backend/config/
+
+# env
+.idea
+.vscode
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# storage files
+data_sync/data/

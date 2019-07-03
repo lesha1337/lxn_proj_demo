@@ -1,0 +1,40 @@
+#!/bin/bash
+#-----------------------------#
+STORAGE_PATH="/home/lxn/Desktop/MAIN/data_sync/data"
+
+ACTION=$1
+
+DEVBASE=$(echo "$2" | /usr/bin/cut -d"_" -f1)
+DEVICE="/dev/$DEVBASE"
+
+UUID=$(echo "$2" | /usr/bin/cut -d"_" -f2)
+MOUNTPOINT="/media/$UUID"
+#-----------------------------#
+do_mount() {
+    /bin/mkdir -p "$MOUNTPOINT"
+    /bin/mount -o rw "$DEVICE" "$MOUNTPOINT"
+}
+
+do_unmount() {
+    /bin/umount "$MOUNTPOINT"
+    /bin/rmdir "$MOUNTPOINT"
+}
+#-----------------------------#
+sync_data() {
+    DATADIR=$(cat "$MOUNTPOINT/.id_camera")
+    
+    /bin/mkdir -p "$STORAGE_PATH/$DATADIR"
+    RAWDATA=$(/usr/bin/rsync -rvti "$MOUNTPOINT/CARDV" "$STORAGE_PATH/$DATADIR" | grep ">f")
+    /bin/chmod 777 -R "$STORAGE_PATH"
+    /usr/bin/python3 /usr/bin/curl_camera.py "$RAWDATA" "$DATADIR"
+}
+#-----------------------------#
+case "$ACTION" in
+    add)
+        do_mount
+        sync_data
+        ;;
+    remove)
+        do_unmount
+        ;;
+esac

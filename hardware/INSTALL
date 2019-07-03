@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cp AlexNDataSync /usr/bin
+cp curl_camera.py /usr/bin
+cp 10-camera_mount.rules /etc/udev/rules.d
+cp camera-mount@.service /etc/systemd/system
+
+systemctl daemon-reload
+udevadm control --reload-rules
